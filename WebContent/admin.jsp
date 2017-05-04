@@ -70,7 +70,7 @@
 					<div class="navmenu"style="text-align: center;">
 						<ul id="menu">
 							<li class="active" ><a href="#home">Home</a></li>
-							<li><a href="techtalk.jsp">Add Tech Talks</a></li>
+							<li><a href="RequestToAddTechTalk">Add Tech Talks</a></li>
 							<li><a href="logout">LogOut</a></li>
 						</ul>
 					</div>
