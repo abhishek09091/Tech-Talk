@@ -48,7 +48,7 @@
                 <div class="agile_its_registration">
                     <form action="./signup" method="post" class="agile_form">
 					  <p>Username</p>
-					  <input type="text" name="employeeName" required="required" />
+					  <input type="text" name="employeeName" placeholder="Your Name" required="required" />
 					  <p>Email</p>
 					  <input type="email" name="employeeEmail"  placeholder="Your Email" pattern="^[a-z]+@atmecs.com"  value="" required="required"/>
 					  

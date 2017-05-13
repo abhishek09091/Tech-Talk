@@ -84,8 +84,7 @@ public class TechTalk {
 	public String toString() {
 		return "TechTalk [techTalkId=" + techTalkId + ", techTalkDate="
 				+ techTalkDate + ", title=" + title + ", description="
-				+ description + ", speaker=" + speaker + ", timeOfTalk="
-				 + "]";
+				+ description + ", speaker=" + speaker +  "]";
 	}
 
 }

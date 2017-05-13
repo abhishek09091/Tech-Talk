@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 
 
 
+import javax.servlet.http.HttpSession;
+
 import model.DAO;
 
 
@@ -22,16 +24,11 @@ import model.DAO;
 @WebServlet("/addtechtalk")
 public class AddTechTalk extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-
-
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		DAO dao=(DAO)request.getAttribute("DAO_INSTANCE");
+		HttpSession session=request.getSession();
+		DAO dao=(DAO)session.getAttribute("DAO_INSTANCE");
 		System.out.println("I m here in add tech talk controller");
 		try {
 			
@@ -50,8 +47,9 @@ public class AddTechTalk extends HttpServlet {
 			String description=request.getParameter("description");
 			System.out.println("Hi I m inside add tech controller try blockhere");
 			System.out.println(title+speaker+techTalkDate+description);
-			
+			System.out.println(dao);
 			dao.addTechTalk(request.getParameter("title"),request.getParameter("speaker"),request.getParameter("description"),sql);
+			System.out.println("AFTER SUCCESSFULLY ADDING A TALK");
 			request.setAttribute("info", "You have Successfully Registered! For the New Tech Talk");
 			response.setHeader("REFRESH", "1;url="+request.getContextPath());
 			

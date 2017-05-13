@@ -11,6 +11,8 @@ import java.util.ArrayList;
 
 
 
+
+
 import pojos.Employee;
 import pojos.TechTalk;
 
@@ -19,7 +21,7 @@ import pojos.TechTalk;
 
 public class DAO {
 	private Connection connection;
-	private PreparedStatement pst0,pst1;//pst2,pst3,pst4;
+	private PreparedStatement pst0,pst1,pst2,pst3;//,pst4;
 	private Statement statement;
 	
 	
@@ -31,9 +33,7 @@ public class DAO {
 		// insert a new tech talk topic
 		pst1=connection.prepareStatement("insert into techtalks(techTalkDate,title,description,speaker) values(?,?,?,?)");
 		
-		//pst2=connection.prepareStatement("select bal from bank_accounts where ac_no=?");
-		//to withdraw the money from account
-		//pst3=connection.prepareStatement("update bank_accounts set bal=bal-? where ac_no=?;");
+		
 		
 		//pst4=connection.prepareStatement("update bank_accounts set bal=bal+? where ac_no=?;");
 		
@@ -54,11 +54,14 @@ public class DAO {
 		if(pst1 !=null)
 			pst1.close();
 		
+		if(pst3 !=null)
+			pst3.close();
+		
+		
 		/*if(pst2 !=null)
 			pst2.close();
 		
-		if(pst3 !=null)
-			pst3.close();
+		
 		
 		if(pst4 !=null)
 			pst4.close();*/
@@ -122,6 +125,7 @@ public class DAO {
 		try {
 			Employee employee = null;
 			System.out.println("inside verifyUser");
+		
 			ResultSet rst=statement.executeQuery("select * from user where empEmail='"+employeeEmail+"'");
 			if(rst.next())
 			{
@@ -199,16 +203,95 @@ public class DAO {
 	public void addTechTalk(String title, String speaker,String description, Date sql)
 	{
 		try {
+			System.out.println("Inside add tech talk method");
+			System.out.println("Values: "+title+speaker+description+sql);
 			pst1.setDate(1, sql);
 			pst1.setString(2, title);
 			pst1.setString(3, description);
 			pst1.setString(4, speaker);
 			//preparedStatement.setDate(6,date);
 			pst1.execute();
+			System.out.println("after inserting into the table");
+			String create = "CREATE TABLE "+ title + 
+	                   "(serialNo int  auto_increment primary key, " +
+	                   " empEmailId VARCHAR(200))"; 
+
+	      statement.executeUpdate(create);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+	}
+	
+	public int getRegistrationAboutTechTalk(String empEmail,String tableName)
+	{
+		System.out.println("name of employee"+empEmail+"name of table"+tableName);
+		try {
+			ResultSet rs=connection.createStatement().executeQuery("select count(*) as total from "+tableName+" where empEmailId='"+empEmail+"'");
+			int count=0;
+			while(rs.next()){
+				count=rs.getInt("total");
+			}
+			System.out.println(count);
+			if(count==1)
+			{
+				return count;
+			}
+			else
+			{
+				return count;
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return 0;
+	}
+
+	public String registerUserInTable(String employeeEmail, String tableName) {
+		// TODO Auto-generated method stub
+		try {
+			System.out.println("registerUserIn Table "+employeeEmail+" IN table"+tableName);
+			pst3=connection.prepareStatement("insert into "+tableName+"(empEmailId) values(?)");
+			pst3.setString(1,employeeEmail);
+			boolean bool=pst3.execute();
+			if(bool)
+			{
+				return "successfull";
+			}
+			else
+			{
+				return "unsuccessfull";
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "unsuccessfull";
+		
+	}
+
+	public String UnregisterUserInTable(String employeeEmail, String tableName) {
+		// TODO Auto-generated method stub
+		System.out.println("Un-registerUserIn Table "+employeeEmail+" IN table"+tableName);
+		try {
+			statement=connection.createStatement();
+			int count=statement.executeUpdate("delete from "+tableName+" where empEmailId="+"'"+employeeEmail+"'");
+			if(count>=0)
+			{
+				return "successfull";
+			}
+			else
+			{
+				return "unsuccessfull";
+			}
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+		return "unsuccessfull";
 		
 	}
 	

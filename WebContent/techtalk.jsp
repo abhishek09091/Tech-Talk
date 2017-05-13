@@ -4,7 +4,7 @@
 <html lang="en">
 
     <head>
-
+		
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -70,13 +70,14 @@
                             </div>
                         </div>
                     </div> 
-                    <div class="row">
+                   <div class="row">
                         <div class="col-sm-6 col-sm-offset-3 form-box">
                         	<div class="form-top">
                     			<h3>Tech Talk Form</h3>
                         		<p>Fill in the for Tech Talk</p>
                             </div>
-                            <div class="form-bottom contact-form">
+                            <div >
+                           
 			                    <form role="form" action="addtechtalk" method="post">
 									<div class="form-group">
 			                    		<label class="sr-only" for="title">Title</label>
@@ -96,7 +97,7 @@
 									</div>
 									
 									
-									<!--<div id="datetimepicker3" class="input-append form-group">
+									<!-- div id="datetimepicker3" class="input-append form-group">
 										<input data-format="hh:mm:ss" type="text" name="techTalkStartTime" placeholder="Tech Talk Start Time..."></input>
 										<span class="add-on">
 												<i class="fa fa-clock-o" aria-hidden="true"></i>
@@ -108,22 +109,22 @@
 										<span class="add-on">
 												<i class="fa fa-clock-o" aria-hidden="true"></i>
 										</span>
-									</div>
--->
+									</div> -->
+
 			                        <div class="form-group">
 			                        	<label class="sr-only" for="contact-message">Description</label>
 			                        	<textarea name="description" placeholder="Description about Tech Talk..." class="contact-message form-control" id="contact-message"></textarea>
 			                        </div>
-			                        <button class="btn btn-info btn-block login" name="LOGIN"  type="submit">Add Tech Talk</button>
+			                        <div><input class="btn btn-info btn-block login" value="Add Tech Talk"   type="submit"/></div>
+			                        
 			                    </form>
-		                    </div>
+		                 
                         </div>
                     </div>
                 </div>
             </div>
             
-        </div>
-
+        </div> 
 
         <!-- Javascript -->
 		

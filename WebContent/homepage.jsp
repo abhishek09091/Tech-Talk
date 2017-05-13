@@ -1,12 +1,15 @@
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
     <%@ page import="pojos.TechTalk" %>
+    <%@ page import="pojos.Employee" %>
      <%@ page import="java.sql.Date"%>
     <%@ page import="java.sql.Time"%>
+    <%@ page import="model.DAO" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
-
+<%System.out.println("Hi i M IN START"); %>
 <html lang="en">
   <head>
 		<title>Timber</title>
@@ -70,7 +73,11 @@
 					<div class="navmenu"style="text-align: center;">
 						<ul id="menu">
 							<li class="active" ><a href="#home">Home</a></li>
-							<li><a href="logout">LogOut</a></li>
+    					     <li><a href="logout">LogOut</a></li>
+							<!-- <form id="myform" method="post" action="logout">
+  							<input type="hidden" name="name" value="value" /> 
+  							<a onclick="document.getElementById('myform').submit();">Log Out</a>
+							</form> -->
 							<!--li><a href="#features">Features</a></li-->
 						</ul>
 					</div>
@@ -113,7 +120,7 @@
     <div id="project">    	
 		        
 <h1>TechTalk List in <span>ATMECS Technologies</span></h1>
-
+<h2>${mess}</h2>
 <table class="responstable">
   
   <tr>
@@ -121,18 +128,38 @@
     <th>Description</th>
     <th>Speaker</th>
     <th>Date</th>
-    <th>Timings</th>
     <th>Register</th>
   </tr>
- 
   <c:forEach items="${techtalks}" var="techtalk">
-  <tr>
-    <td>${techtalk.title}</td>
-    <td>${techtalk.description}</td>
-    <td>${techtalk.speaker}</td>
-    <td>${techtalk.techTalkDate}</td>
-    <td><a href="./RegisterServlet"><img src="assests/images/edit1.png" alt="" title="" border="0" /></a></td>
-  </tr>
+  
+  	<form action="registerservlet" method="post">
+  		<tr>
+    		<td>${techtalk.title}</td>
+    		<input type="hidden" name="title" value="${techtalk.title}">
+    		<c:set var="var" value="${techtalk.title}" scope="page" />
+    		<td>${techtalk.description}</td>
+    		<td>${techtalk.speaker}</td>
+    		<td>${techtalk.techTalkDate}</td>
+    		<%  
+    					DAO dao=(DAO)session.getAttribute("DAO_INSTANCE");
+    					Employee emp=(Employee)session.getAttribute("employee");
+    					System.out.println(dao);
+    					System.out.println(emp);
+    					System.out.println((String)pageContext.getAttribute("var"));
+    					int count=dao.getRegistrationAboutTechTalk(emp.getEmployeeEmail(),(String)pageContext.getAttribute("var"));
+    					String reg=" ";
+    					if(count==0)
+    					{
+    						reg="register";
+    					}
+    					else
+    					{
+    						reg="unregistered";
+    					}
+    		%>
+    		<td><button type="submit" name="submit" value="<%=reg%>" ><%=reg%></button></td>
+  		</tr>
+ 	</form>
  
   </c:forEach>
   

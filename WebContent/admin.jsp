@@ -9,7 +9,7 @@
 
 <html lang="en">
   <head>
-		<title>Timber</title>
+		<title>Admin Page</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="stylesheet" type="text/css" href="assests/css/bootstrap.css">
@@ -117,7 +117,6 @@
 <table class="responstable">
   
   <tr>
-    <th>Check Boxes</th>
     <th data-th="Driver details"><span>Title</span></th>
     <th>Description</th>
     <th>Speaker</th>
@@ -128,13 +127,23 @@
  
   <c:forEach items="${techtalks}" var="techtalk">
   <tr>
-    <td><input type="radio" name=order value="${techtalk.techTalkId}" /></td>
     <td>${techtalk.title}</td>
     <td>${techtalk.description}</td>
     <td>${techtalk.speaker}</td>
     <td>${techtalk.techTalkDate}</td>
-    <td><a href="./UpdateServlet"><img src="assests/images/user_edit.png" alt="" title="" border="0" /></a></td>
-    <td><a href="./RegisterServlet"><img src="assests/images/trash.png" alt="" title="" border="0" /></a></td>
+    <form action="updateservlet" method="post">
+    <input type="hidden" name="techTalkId" value="${techtalk.techTalkId}" />
+    <input type="hidden" name="title" value="${techtalk.title}">
+    <input type="hidden" name="description" value="${techtalk.description}">
+    <input type="hidden" name="speaker" value="${techtalk.speaker}">
+    <input type="hidden" name="techTalkDate" value="${techtalk.techTalkDate}">
+    <td><button type="submit" value="submit"><img src="assests/images/user_edit.png" alt="" title="" border="0" /></a></button></td>
+    </form>
+    <form action="deleteservlet" method="post">
+     <input type="hidden" name="techTalkId" value="${techtalk.techTalkId}" />
+    <input type="hidden" name="title" value="${techtalk.title}">
+    <td><button type=submit value="submit1"><img src="assests/images/trash.png" alt="" title="" border="0" /></a></button></td>
+	</form>  
   </tr>
  
   </c:forEach>

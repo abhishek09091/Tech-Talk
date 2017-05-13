@@ -60,14 +60,13 @@ public class SignUpServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		HttpSession session=request.getSession();
-		session.setAttribute("DAO_INSTANCE", ad);
+		session.setAttribute("DAO_INSTANCE1", ad);
 		response.setContentType("Text/html");
-		DAO dao=(DAO)request.getAttribute("DAO_INSTANCE");
 		//String employeeName=request.getParameter("employeeName");
 		//String employeeEmail=request.getParameter("employeeEmail");
 		//String employeePassword=request.getParameter("employeePassword");
 		
-		boolean flag=dao.registerUser(request.getParameter("employeeName"),request.getParameter("employeeEmail"),request.getParameter("employeePassword"));
+		boolean flag=ad.registerUser(request.getParameter("employeeName"),request.getParameter("employeeEmail"),request.getParameter("employeePassword"));
 			
 			if(flag)
 			{
